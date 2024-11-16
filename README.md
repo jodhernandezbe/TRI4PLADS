@@ -1,5 +1,5 @@
 
-# FOCAPD SI
+# TRI4PLADS (FOCAPD SI)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://github.com/jodhernandezbe/focapd-plastics/actions/workflows/publish.yml/badge.svg)](https://github.com/jodhernandezbe/focapd-plastics/actions/workflows/publish.yml)
