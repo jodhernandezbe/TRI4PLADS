@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "src"
+name = "tri4plads"
 version = "0.1.0"
 description = "Basic code to obtain probability distribution functions for EoL using TRI data"
 authors = ["Jose D. Hernandez-Betancur <jodhernandezbemj@gmail.com>"]
