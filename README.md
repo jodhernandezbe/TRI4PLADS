@@ -2,10 +2,10 @@
 # FOCAPD SI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI](https://github.com/jodhernandezbe/focapd-plastics/actions/workflows/publish.yml/badge.svg)](https://github.com/jodhernandezbe/focapd-plastics/actions/workflows/publish.yml)
+[![PyPI](https://github.com/jodhernandezbe/tri4plads/actions/workflows/publish.yml/badge.svg)](https://github.com/jodhernandezbe/tri4plads/actions/workflows/publish.yml)
 [![DOI](https://zenodo.org/badge/879061880.svg)](https://doi.org/10.5281/zenodo.14031589)
 
-![Project Logo](https://github.com/jodhernandezbe/focapd-plastics/blob/master/assets/logo.png)
+![Project Logo](https://github.com/jodhernandezbe/tri4plads/blob/master/assets/logo.png)
 
 ## Overview
 
@@ -23,6 +23,7 @@ This repository contains the code to generate discrete distribution based on TRI
 │   └── tri_file_3c_columns.txt
 ├── conf
 │   └── main.yaml
+├── tests
 ├── data
 │   ├── processed
 │   │   └── tri_eol_additives.sqlite
@@ -60,15 +61,16 @@ This repository contains the code to generate discrete distribution based on TRI
     │       │   ├── file_3a.py
     │       │   └── file_3c.py
     │       └── utils.py
-    └── stat_distribution
+    └── generate_analysis
         ├── __init__.py
+        ├── main.py
         ├── db_queries.py
-        └── dist_generator.py
+        └── interactive_cli.py
 ```
 
 ## Entity relational diagram (ERD)
 
-![Project Logo](https://github.com/jodhernandezbe/focapd-plastics/blob/master/data/processed/erd_tri_eol_additives.png)
+![Project Logo](https://github.com/jodhernandezbe/tri4plads/blob/master/data/processed/erd_tri_eol_additives.png)
 
 ## Requirements
 

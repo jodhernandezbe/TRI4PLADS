@@ -140,8 +140,9 @@ class TriDataLoader(BaseDataLoader):
 
         """
         existing_names = pd.read_sql(
-            text("SELECT name FROM {}".format(table_name)),
+            text("SELECT name FROM :table_name"),
             con=self.session.get_bind(),
+            params={"table_name": table_name},
         )["name"].tolist()
 
         df_filtered = df[~df["name"].isin(existing_names)]
@@ -228,7 +229,7 @@ class TriDataLoader(BaseDataLoader):
         eol_name_list = df["eol_name"].unique().tolist()
         records_df = df[columns_needed].drop_duplicates()
 
-        records_df["additive_id"] = records_df["tri_chem_id"].apply(
+        records_df["additive_id"] = records_df["tri_chem_id"].apply(  # type: ignore [reportAttributeAccessIssue]
             lambda row: self._cache_get_or_create(
                 self.cache_additive_id,
                 self._get_additive_id,

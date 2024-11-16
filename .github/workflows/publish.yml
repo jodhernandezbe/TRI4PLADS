@@ -1,3 +1,4 @@
+---
 name: Release
 on:
   release:
@@ -39,7 +40,7 @@ jobs:
           VERSION=$(poetry version -s)
           while true; do
             # Attempt to publish with the current version
-            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/project/focapd/$VERSION/)
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/project/tri4plads/$VERSION/)
             if [ "$RESPONSE" = "404" ]; then
               echo "New version is $VERSION"
               poetry version $VERSION

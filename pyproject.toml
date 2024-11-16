@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "focapd"
+name = "src"
 version = "0.1.0"
 description = "Basic code to obtain probability distribution functions for EoL using TRI data"
 authors = ["Jose D. Hernandez-Betancur <jodhernandezbemj@gmail.com>"]
@@ -11,8 +11,8 @@ exclude = ["ancillary", "data/raw"]
 
 
 [project.urls]
-"Homepage" = "https://github.com/jodhernandezbe/focapd-plastics"
-"Bug Tracker" = "https://github.com/jodhernandezbe/focapd-plastics"
+"Homepage" = "https://github.com/jodhernandezbe/tri4plads"
+"Bug Tracker" = "https://github.com/jodhernandezbe/tri4plads"
 
 [tool.poetry.dependencies]
 python = ">=3.12, <3.13"
@@ -25,6 +25,12 @@ aiohttp = "^3.10.10"
 python-dotenv = "^1.0.1"
 pgmpy = "^0.1.26"
 alembic = "^1.13.3"
+questionary = "^2.0.1"
+rich = "^13.9.4"
+openpyxl = "^3.1.5"
+poetry = "^1.8.4"
+pip = "^24.3.1"
+pandas-stubs = "^2.2.3.241009"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
@@ -33,6 +39,7 @@ flake8 = "^6.1.0"
 isort = "^5.13.2"
 interrogate = "^1.5.0"
 pyright = "^1.1.369"
+pytest = "^8.3.3"
 
 [build-system]
 requires = ["poetry-core"]
@@ -76,9 +83,13 @@ color = true
 [tool.pyright]
 include = ["src"]
 extraPaths = ["src"] # for imports from other roots in subdirs
+exclude = ["tests"]
 typeCheckingMode = "standard"
 pythonVersion = "3.12"
 reportMissingImports = true
 reportMissingTypeStubs = false
 stubPath = './typestubs'
 venv = '.'
+
+[tool.bandit]
+exclude_dirs = ["tests"]
