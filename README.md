@@ -208,6 +208,20 @@ Then apply the migrations by running:
 alembic upgrade head
 ```
 
+## Data Use
+
+### Installation
+
+If you only want to use the data and take advantage of the existing code, you can install the ```tri4plads```:
+
+```
+pip install tri4plads
+```
+
+Ensure you have Python >=3.12, <3.13.
+
+### Example
+
 ## TODO
 
 ### TRI data retrieval
