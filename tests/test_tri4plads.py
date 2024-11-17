@@ -1,6 +1,6 @@
 import pytest
 
-from src import Tri4PlasticAdditives
+from src.tri4plads import Tri4PlasticAdditives
 
 
 def test_initialization():

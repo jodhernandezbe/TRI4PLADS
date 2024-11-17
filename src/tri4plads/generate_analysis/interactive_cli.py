@@ -16,7 +16,7 @@ from omegaconf import DictConfig
 from rich.console import Console
 from rich.table import Table
 
-from src.generate_analysis.db_queries import ResultsStorage, TriDatabaseFilter
+from src.tri4plads.generate_analysis.db_queries import ResultsStorage, TriDatabaseFilter
 
 
 class InteractiveCLI:
@@ -255,7 +255,7 @@ if __name__ == "__main__":
 
     with hydra.initialize(
         version_base=None,
-        config_path="../../conf",
+        config_path="../../../conf",
         job_name="smoke-testing-tri",
     ):
         cfg = hydra.compose(config_name="main")

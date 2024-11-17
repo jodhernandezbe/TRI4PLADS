@@ -5,7 +5,7 @@ description = "Basic code to obtain probability distribution functions for EoL u
 authors = ["Jose D. Hernandez-Betancur <jodhernandezbemj@gmail.com>"]
 readme = "README.md"
 packages = [
-    { include = "src.generate_analysis", from = "src" }
+    { include = "tri4plads", from = "src" }
 ]
 exclude = ["ancillary", "data/raw"]
 

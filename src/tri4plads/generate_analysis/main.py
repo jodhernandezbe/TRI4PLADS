@@ -10,7 +10,7 @@ and generates the analysis report on plastic additives data.
 
 import hydra
 
-from src.generate_analysis.interactive_cli import InteractiveCLI
+from src.tri4plads.generate_analysis.interactive_cli import InteractiveCLI
 
 
 class Tri4PlasticAdditives:
@@ -29,7 +29,7 @@ class Tri4PlasticAdditives:
     def _start_config(self):
         with hydra.initialize(
             version_base=None,
-            config_path="../../conf",
+            config_path="../../../conf",
             job_name="tri-4-plastic-additives",
         ):
             self.cfg = hydra.compose(config_name="main")
