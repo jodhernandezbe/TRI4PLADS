@@ -17,6 +17,11 @@ from rich.console import Console
 from rich.table import Table
 
 from src.tri4plads.generate_analysis.db_queries import ResultsStorage, TriDatabaseFilter
+from src.tri4plads.generate_analysis.helpers import (
+    calculate_highest_potential_combinations,
+    get_waste_management_summary,
+    select_post_recycling_use,
+)
 
 
 class InteractiveCLI:
@@ -204,49 +209,101 @@ class InteractiveCLI:
         finally:
             self._save_dataframe_to_excel(df)
 
-    def initial_record_exploration(self):
+    def data_exploration_menu(self):
         """Display a menu to select the initial record exploration options."""
-        choice = questionary.select(
-            "What would you like to do?",
+        while True:
+            choice = questionary.select(
+                "What would you like to do?",
+                choices=[
+                    "Select Plastic Sector",
+                    "Select Additives",
+                    "Select Additive-Related Uses",
+                    "Select End-of-Life Activities",
+                    "Select All Filters",
+                    "Back to Main Menu",
+                ],
+            ).ask()
+
+            if choice == "Select Plastic Sector":
+                selected_code = self.select_plastic_sector()
+                df = self.tri_db_filter.get_records_stats_by_naics_code(selected_code)
+                self._display_records_stats(df)
+            elif choice == "Select Additives":
+                selected_additives = self.select_additives()
+                df = self.tri_db_filter.get_records_stats_by_additive(selected_additives)
+                self._display_records_stats(df)
+            elif choice == "Select Additive-Related Uses":
+                selected_uses = self.select_additive_related_uses()
+                df = self.tri_db_filter.get_records_stats_by_additive_related_use(selected_uses)
+                self._display_records_stats(df)
+            elif choice == "Select End-of-Life Activities":
+                selected_activities = self.select_end_of_life_activities()
+                df = self.tri_db_filter.get_records_stats_by_end_of_life_activity(selected_activities)
+                self._display_records_stats(df)
+            elif choice == "Select All Filters":
+                selected_code = self.select_plastic_sector()
+                selected_additives = self.select_additives()
+                selected_uses = self.select_additive_related_uses()
+                selected_activities = self.select_end_of_life_activities()
+
+                df = self.tri_db_filter.get_records_stats_by_all_filters(
+                    selected_code, selected_additives, selected_uses, selected_activities
+                )
+                self._display_records_stats(df)
+            elif choice == "Back to Main Menu":
+                break
+
+    def generate_report(self):
+        """Generate a report based on the selected criteria."""
+        on_site = questionary.select(
+            "Would you like to consider on-site activities?",
             choices=[
-                "Select Plastic Sector",
-                "Select Additives",
-                "Select Additive-Related Uses",
-                "Select End-of-Life Activities",
-                "Select All Filters",
-                "Exit",
+                "Yes",
+                "No",
             ],
         ).ask()
+        selected_code = self.select_plastic_sector()
+        selected_additives = self.select_additives()
+        df = self.tri_db_filter.get_tri_records_for_report(on_site, selected_code, selected_additives)
 
-        if choice == "Select Plastic Sector":
-            selected_code = cli.select_plastic_sector()
-            df = self.tri_db_filter.get_records_stats_by_naics_code(selected_code)
-            self._display_records_stats(df)
-        elif choice == "Select Additives":
-            selected_additives = cli.select_additives()
-            df = self.tri_db_filter.get_records_stats_by_additive(selected_additives)
-            self._display_records_stats(df)
-        elif choice == "Select Additive-Related Uses":
-            selected_uses = cli.select_additive_related_uses()
-            df = self.tri_db_filter.get_records_stats_by_additive_related_use(selected_uses)
-            self._display_records_stats(df)
-        elif choice == "Select End-of-Life Activities":
-            selected_activities = cli.select_end_of_life_activities()
-            df = self.tri_db_filter.get_records_stats_by_end_of_life_activity(selected_activities)
-            self._display_records_stats(df)
-        elif choice == "Select All Filters":
-            selected_code = cli.select_plastic_sector()
-            selected_additives = cli.select_additives()
-            selected_uses = cli.select_additive_related_uses()
-            selected_activities = cli.select_end_of_life_activities()
+        if not df.empty:
+            df_summary = get_waste_management_summary(df)
+            self._display_records_stats(df_summary)
 
-            df = self.tri_db_filter.get_records_stats_by_all_filters(
-                selected_code, selected_additives, selected_uses, selected_activities
+        df_potential = calculate_highest_potential_combinations(df)
+        self._display_records_stats(df_potential)
+
+        recycling_df = df_potential[df_potential["Waste Management Type"] == "Recycling"]
+        if not recycling_df.empty:
+            df_industrial = self.tri_db_filter.get_industrial_uses()
+            df_commercial = self.tri_db_filter.get_consumer_commercial_uses()
+
+            post_recycling_df = select_post_recycling_use(
+                recycling_df,
+                df_industrial,
+                df_commercial,
             )
-            self._display_records_stats(df)
+            self._display_records_stats(post_recycling_df)
 
-        elif choice == "Exit":
-            cli.console.print("[bold green]Goodbye![/bold green]")
+    def main_menu(self):
+        """Display the main menu to select the initial record exploration options."""
+        while True:
+            choice = questionary.select(
+                "Main Menu: What would you like to do?",
+                choices=[
+                    "Data Exploration",
+                    "Generate Reports",
+                    "Exit",
+                ],
+            ).ask()
+
+            if choice == "Data Exploration":
+                self.data_exploration_menu()
+            elif choice == "Generate Reports":
+                self.generate_report()
+            elif choice == "Exit":
+                self.console.print("[bold green]Goodbye![/bold green]")
+                break
 
 
 if __name__ == "__main__":
@@ -261,4 +318,4 @@ if __name__ == "__main__":
         cfg = hydra.compose(config_name="main")
         cli = InteractiveCLI(cfg)
 
-        selected_options = cli.initial_record_exploration()
+        selected_options = cli.data_exploration_menu()
