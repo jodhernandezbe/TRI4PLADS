@@ -32,6 +32,9 @@ openpyxl = "^3.1.5"
 poetry = "^1.8.4"
 pip = "^24.3.1"
 pandas-stubs = "^2.2.3.241009"
+plotly = "^6.0.0"
+kaleido = "0.2.1"
+matplotlib = "^3.10.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"

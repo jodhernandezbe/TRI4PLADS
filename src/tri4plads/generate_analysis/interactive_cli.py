@@ -19,7 +19,9 @@ from rich.table import Table
 from src.tri4plads.generate_analysis.db_queries import ResultsStorage, TriDatabaseFilter
 from src.tri4plads.generate_analysis.helpers import (
     calculate_highest_potential_combinations,
+    generate_sankey,
     get_waste_management_summary,
+    identify_most_important_graph_elements,
     select_post_recycling_use,
 )
 
@@ -282,8 +284,26 @@ class InteractiveCLI:
                 recycling_df,
                 df_industrial,
                 df_commercial,
+                selected_additives,
             )
             self._display_records_stats(post_recycling_df)
+
+    def generate_mma_pmma_case_study(self):
+        """Generate the MMA and PMMA case study."""
+        mma_tri_chem_id = ["80626"]
+        plastic_related_code = list(self._get_available_plastic_sectors().keys())
+
+        df_general = self.tri_db_filter.get_tri_records_for_report(
+            True,
+            None,
+            mma_tri_chem_id,
+        )
+        df_general = identify_most_important_graph_elements(
+            df_general,
+            plastic_related_code,
+        )
+
+        generate_sankey(df_general)
 
     def main_menu(self):
         """Display the main menu to select the initial record exploration options."""
@@ -293,6 +313,7 @@ class InteractiveCLI:
                 choices=[
                     "Data Exploration",
                     "Generate Reports",
+                    "Generate MMA and PMMA Case Study",
                     "Exit",
                 ],
             ).ask()
@@ -301,6 +322,8 @@ class InteractiveCLI:
                 self.data_exploration_menu()
             elif choice == "Generate Reports":
                 self.generate_report()
+            elif choice == "Generate MMA and PMMA Case Study":
+                self.generate_mma_pmma_case_study()
             elif choice == "Exit":
                 self.console.print("[bold green]Goodbye![/bold green]")
                 break
