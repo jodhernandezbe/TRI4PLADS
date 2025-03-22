@@ -11,6 +11,8 @@
 
 This repository contains the code to generate discrete distribution based on TRI data, as part of the paper: Integrating data engineering and process systems engineering for end-of-life chemical flow analysis.
 
+## Citation
+
 ```
 Hernandez-Betancur, J. D., Chea, J. D., Perez, D., & Ruiz-Mercado, G. J. (2025).
 Supporting GitHub: Integrating data engineering and process systems engineering
