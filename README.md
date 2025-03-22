@@ -13,7 +13,8 @@ This repository contains the code to generate discrete distribution based on TRI
 
 ```
 Hernandez-Betancur, J. D., Chea, J. D., Perez, D., & Ruiz-Mercado, G. J. (2025).
-Supporting GitHub: Integrating data engineering and process systems engineering for end-of-life chemical flow analysis (v-0.0.0-beta).
+Supporting GitHub: Integrating data engineering and process systems engineering
+for end-of-life chemical flow analysis (v-0.0.0-beta).
 Zenodo. https://doi.org/10.5281/zenodo.14174327
 ```
 
