@@ -1,5 +1,5 @@
 
-# TRI4PLADS (FOCAPD SI)
+# Supporting GitHub: Integrating data engineering and process systems engineering for end-of-life chemical flow analysis
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://github.com/jodhernandezbe/tri4plads/actions/workflows/publish.yml/badge.svg)](https://github.com/jodhernandezbe/tri4plads/actions/workflows/publish.yml)
@@ -9,7 +9,11 @@
 
 ## Overview
 
-This repository contains the code to generate discrete distribution based on TRI data, as part of the FOCAPD 2024 Special Issue invitation.
+This repository contains the code to generate discrete distribution based on TRI data, as part of the paper: Integrating data engineering and process systems engineering for end-of-life chemical flow analysis.
+
+```
+Hernandez-Betancur, J. D., Chea, J. D., Perez, D., & Ruiz-Mercado, G. J. (2025). Supporting GitHub: Integrating data engineering and process systems engineering for end-of-life chemical flow analysis (v-0.0.0-beta). Zenodo. https://doi.org/10.5281/zenodo.14174327
+```
 
 ## Project tree
 
